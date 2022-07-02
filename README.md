@@ -1,8 +1,13 @@
-# Telegram bot
+# Telegram bot notes / Записная книжка
 
-### Install
+### Install / Установка
 ```shell
 $ make install
 ```
 
-Указать telegram api token в `.env.local`
+### Указать telegram_api_token в `.env.local`
+
+### run Server / Запуск веб-сервера
+```shell
+$ make run-server
+```
