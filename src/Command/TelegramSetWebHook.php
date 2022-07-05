@@ -27,7 +27,7 @@ class TelegramSetWebHook extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $url = 'https://9ee0-85-249-167-35.ngrok.io/webhook';
+        $url = 'https://efe1-85-249-175-151.ngrok.io/webhook';
         $method = SetWebhookMethod::create($url);
         $result = $this->botApi->set($method);
 
