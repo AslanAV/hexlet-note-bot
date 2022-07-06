@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\NoteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,16 +22,17 @@ class TelegramController extends AbstractController
         $update = $webhookFetcher->fetch($request->getContent());
 
         $userText = new UnicodeString($update->message->text);
-        $matches = $userText->match("/[\w\s]+#(\w+)/");
-
+        $matches = $userText->match("/[\w\s]+#(\w+)+/");
 
         $note = [
-          'text' => '',
-          'tags' => []
+            'text' => '',
+            'tags' => []
         ];
 
-        $method =SendMessageMethod::create($update->message->chat->id, $text);
+        $text = '';
+        $method = SendMessageMethod::create($update->message->chat->id, $text);
         $botApi->send($method);
+
         return new JsonResponse([]);
     }
 }
