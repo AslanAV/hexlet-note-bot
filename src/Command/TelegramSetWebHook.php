@@ -8,11 +8,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TgBotApi\BotApiBase\BotApiInterface;
 use TgBotApi\BotApiBase\Method\SetWebhookMethod;
 
-class TelegramSetWebHook extends Command
+class TelegramSetWebhook extends Command
 {
+
     private $botApi;
 
-    public function __construct(BotApiInterface $botApi, string $name = null)
+    public function __construct(BotApiInterface  $botApi, string $name = null)
     {
         parent::__construct($name);
         $this->botApi = $botApi;
@@ -23,18 +24,20 @@ class TelegramSetWebHook extends Command
 
     protected function configure(): void
     {
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $url = 'https://efe1-85-249-175-151.ngrok.io/webhook';
+        $url = 'https://1b86-46-39-51-57.ngrok.io/webhook';
         $method = SetWebhookMethod::create($url);
         $result = $this->botApi->set($method);
 
-        if(!$result) {
+        if (!$result) {
             return Command::FAILURE;
         }
-        $output->writeln("Новый wehook url:{$url}");
+
+        $output->writeln("Новый webhook url: {$url}");
         return Command::SUCCESS;
     }
 }

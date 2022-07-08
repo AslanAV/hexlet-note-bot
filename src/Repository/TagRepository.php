@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Repository;
 
 use App\Entity\Tag;
@@ -12,4 +13,16 @@ class TagRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tag::class);
     }
+
+    public function add(Tag $tag): void
+    {
+        $this->_em->persist($tag);
+    }
+
+    public function save(Tag $tag): void
+    {
+        $this->_em->persist($tag);
+        $this->_em->flush($tag);
+    }
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Service;
 
 
@@ -27,6 +28,7 @@ class TextParser
         foreach ($parts as $tag) {
             $tags[] = trim($tag);
         }
+
         return [
             'text' => $noteText,
             'tags' => $tags

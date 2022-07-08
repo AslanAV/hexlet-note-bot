@@ -17,21 +17,11 @@ class TelegramController extends AbstractController
     /**
      * @Route("/webhook", name="telegram_webhook")
      */
-    public function webhook(Request $request, WebhookFetcherInterface $webhookFetcher, BotApiInterface $botApi): JsonResponse
+    public function webhook(Request $request, WebhookFetcherInterface $webhookFetcher, NoteService $noteService): JsonResponse
     {
         $update = $webhookFetcher->fetch($request->getContent());
 
-        $userText = new UnicodeString($update->message->text);
-        $matches = $userText->match("/[\w\s]+#(\w+)+/");
-
-        $note = [
-            'text' => '',
-            'tags' => []
-        ];
-
-        $text = '';
-        $method = SendMessageMethod::create($update->message->chat->id, $text);
-        $botApi->send($method);
+        $noteService->add($update->message->chat->id, $update->message->text);
 
         return new JsonResponse([]);
     }

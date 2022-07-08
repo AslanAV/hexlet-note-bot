@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Entity;
+
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,12 +24,12 @@ class Note
 
     /**
      * @var string
-     * @ORM\Column(name="text", type="string", nullable=false)
+     * @ORM\Column(name="text", type="text", nullable=false)
      */
     private string $text;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="notes")
      */
     private Collection $tags;
 
@@ -35,5 +37,31 @@ class Note
     {
         $this->text = $text;
         $this->tags = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    /**
+     * @return ArrayCollection|Collection|Tag[]
+     */
+    public function getTags(): ArrayCollection|Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addNote($this);
+        }
     }
 }
